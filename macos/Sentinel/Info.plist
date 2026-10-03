@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>Sentinel</string>
+	<key>CFBundleExecutable</key>
+	<string>Sentinel</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Sentinel</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>3.0.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>14.0</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>© James Murphy. Free version. All rights reserved.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Sentinel looks at devices on your Wi-Fi so you can see if anything is sharing files or allowing remote access. It does not try passwords or break into devices.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_ssh._tcp</string>
+		<string>_sftp-ssh._tcp</string>
+		<string>_afpovertcp._tcp</string>
+		<string>_smb._tcp</string>
+		<string>_rfb._tcp</string>
+		<string>_rdp._tcp</string>
+		<string>_vnc._tcp</string>
+		<string>_telnet._tcp</string>
+		<string>_ftp._tcp</string>
+		<string>_http._tcp</string>
+		<string>_https._tcp</string>
+		<string>_ipp._tcp</string>
+		<string>_printer._tcp</string>
+		<string>_airplay._tcp</string>
+		<string>_raop._tcp</string>
+		<string>_companion-link._tcp</string>
+		<string>_device-info._tcp</string>
+		<string>_adisk._tcp</string>
+		<string>_eppc._tcp</string>
+		<string>_nfs._tcp</string>
+		<string>_sftp._tcp</string>
+		<string>_apple-mobdev2._tcp</string>
+		<string>_remotepairing._tcp</string>
+		<string>_workstation._tcp</string>
+		<string>_rdlink._tcp</string>
+		<string>_pdl-datastream._tcp</string>
+		<string>_raop._tcp</string>
+		<string>_homekit._tcp</string>
+		<string>_hap._tcp</string>
+		<string>_spotify-connect._tcp</string>
+		<string>_googlecast._tcp</string>
+		<string>_scanner._tcp</string>
+		<string>_daap._tcp</string>
+		<string>_airdrop._tcp</string>
+	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,46 @@
+# OS / editor
+.DS_Store
+._*
+*.swp
+.idea/
+.vscode/
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.pem
+*.p12
+*.pfx
+*.p8
+*.key
+*.mobileprovision
+id_rsa*
+id_ed25519*
+*secret*
+*credentials*
+*token*
+local.properties
+data/config.json
+
+# Dependencies
+node_modules/
+Pods/
+
+# Build outputs
+build/
+dist/
+.build/
+bin/
+obj/
+publish/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+.gradle/
+packaging/stage/
+__pycache__/
+*.pyc
+.netlify/

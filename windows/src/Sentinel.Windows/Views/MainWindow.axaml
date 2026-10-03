@@ -1,0 +1,210 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Sentinel.ViewModels"
+        xmlns:models="using:Sentinel.Models"
+        x:Class="Sentinel.Views.MainWindow"
+        x:DataType="vm:AppState"
+        Width="1280" Height="820"
+        MinWidth="1000" MinHeight="640"
+        Title="Sentinel 2.0"
+        Background="#0B1014">
+
+  <Grid ColumnDefinitions="220,*">
+    <Border Background="#11181F" BorderBrush="#2A3440" BorderThickness="0,0,1,0">
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Margin="16,18,16,8" Spacing="2">
+          <TextBlock Text="SENTINEL  2.0" FontFamily="Cascadia Mono, Consolas, monospace"
+                     FontWeight="Bold" FontSize="15" Foreground="#3DDC97"/>
+          <TextBlock Text="Windows defensive scanner" FontSize="11" Foreground="#8EA0AD"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Margin="14,8,14,16" Spacing="6">
+          <TextBlock Text="{Binding SignatureLine}" FontSize="10" Foreground="#8EA0AD" TextWrapping="Wrap"/>
+          <TextBlock Text="{Binding NetworkLine}" FontSize="10" Foreground="#8EA0AD" TextWrapping="Wrap"/>
+        </StackPanel>
+        <StackPanel Margin="8,8,8,0" Spacing="2">
+          <Button Name="NavOverview" Content="Overview" Click="NavClick" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Padding="12,8"/>
+          <Button Name="NavNetwork" Content="Network" Click="NavClick" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Padding="12,8"/>
+          <Button Name="NavThisPc" Content="This PC" Click="NavClick" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Padding="12,8"/>
+          <Button Name="NavPersistence" Content="Persistence" Click="NavClick" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Padding="12,8"/>
+          <Button Name="NavAccounts" Content="Accounts" Click="NavClick" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Padding="12,8"/>
+          <Button Name="NavSignatures" Content="Signatures" Click="NavClick" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Padding="12,8"/>
+          <Button Name="NavFindings" Content="Findings" Click="NavClick" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Padding="12,8"/>
+        </StackPanel>
+      </DockPanel>
+    </Border>
+
+    <Grid Grid.Column="1" RowDefinitions="Auto,*,Auto">
+      <Border Background="#0B1014" BorderBrush="#2A3440" BorderThickness="0,0,0,1" Padding="18,12">
+        <Grid ColumnDefinitions="*,Auto">
+          <StackPanel>
+            <TextBlock Text="{Binding Title}" FontSize="22" FontWeight="SemiBold" Foreground="#E8EEF4"/>
+            <TextBlock Text="{Binding NetworkLine}" FontSize="12" FontFamily="Cascadia Mono, Consolas, monospace" Foreground="#8EA0AD"/>
+          </StackPanel>
+          <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+            <Button Content="Scan Network" Click="ScanNetwork" IsEnabled="{Binding CanScan}"/>
+            <Button Content="Scan This PC" Click="ScanThisPc" IsEnabled="{Binding CanScan}"/>
+            <Button Content="Full assessment" Click="ScanFull" IsEnabled="{Binding CanScan}"/>
+          </StackPanel>
+        </Grid>
+      </Border>
+
+      <Panel Grid.Row="1" Margin="18">
+        <ScrollViewer Name="PageOverview">
+          <StackPanel Spacing="14" MaxWidth="880" HorizontalAlignment="Left">
+            <TextBlock TextWrapping="Wrap" Foreground="#C5D0DA" FontSize="14"
+                       Text="Sentinel 2.0 inventories YOUR network and this Windows PC for remote-access exposure, weak hardening, persistence, and known malware indicators. It does not exploit services, try passwords, or send attack payloads."/>
+            <CheckBox IsChecked="{Binding Authorized}" Foreground="#E8EEF4"
+                      Content="I am authorized to scan this network and this PC (I own them or have written permission)."/>
+            <Border Background="#141B22" BorderBrush="#2A3440" BorderThickness="1" Padding="16" CornerRadius="8">
+              <StackPanel Spacing="8">
+                <TextBlock Text="WHAT 2.0 ADDS ON WINDOWS" FontSize="11" Foreground="#8EA0AD" FontWeight="SemiBold"/>
+                <TextBlock Foreground="#C5D0DA" TextWrapping="Wrap" LineHeight="20"
+                           Text="• Windows hardening: Defender, firewall profiles, UAC, WDigest, LSA protection, NTLM, AlwaysInstallElevated, SMBv1, LLMNR, BitLocker, Secure Boot&#x0a;• Remote access: RDP + NLA, WinRM, Remote Registry, Telnet, RMM process hunt&#x0a;• Persistence: Run keys, Startup folders, unquoted services, scheduled tasks, Winlogon, IFEO, AppInit_DLLs&#x0a;• Identity: local admins, Guest, saved credentials, elevation status&#x0a;• Event log triage: failed logons (4625), RDP success (4624 type 10), new services (7045), PowerShell 4104&#x0a;• Integrity: hosts file, user proxy, USB storage history, local SMB shares&#x0a;• Signatures: MalwareBazaar (Windows tags), ThreatFox, URLhaus — nothing is uploaded"/>
+              </StackPanel>
+            </Border>
+            <Grid ColumnDefinitions="*,*,*,*">
+              <Border Background="#141B22" BorderBrush="#2A3440" BorderThickness="1" Padding="12" Margin="0,0,8,0">
+                <StackPanel>
+                  <TextBlock Text="CRITICAL" FontSize="11" Foreground="#FF5D5D"/>
+                  <TextBlock Text="{Binding CriticalCount}" FontSize="28" FontWeight="Bold" Foreground="#FF5D5D"/>
+                </StackPanel>
+              </Border>
+              <Border Grid.Column="1" Background="#141B22" BorderBrush="#2A3440" BorderThickness="1" Padding="12" Margin="0,0,8,0">
+                <StackPanel>
+                  <TextBlock Text="HIGH" FontSize="11" Foreground="#F5A524"/>
+                  <TextBlock Text="{Binding HighCount}" FontSize="28" FontWeight="Bold" Foreground="#F5A524"/>
+                </StackPanel>
+              </Border>
+              <Border Grid.Column="2" Background="#141B22" BorderBrush="#2A3440" BorderThickness="1" Padding="12" Margin="0,0,8,0">
+                <StackPanel>
+                  <TextBlock Text="MEDIUM" FontSize="11" Foreground="#5BB5F5"/>
+                  <TextBlock Text="{Binding MediumCount}" FontSize="28" FontWeight="Bold" Foreground="#5BB5F5"/>
+                </StackPanel>
+              </Border>
+              <Border Grid.Column="3" Background="#141B22" BorderBrush="#2A3440" BorderThickness="1" Padding="12">
+                <StackPanel>
+                  <TextBlock Text="FINDINGS" FontSize="11" Foreground="#8EA0AD"/>
+                  <TextBlock Text="{Binding FindingCount}" FontSize="28" FontWeight="Bold" Foreground="#E8EEF4"/>
+                </StackPanel>
+              </Border>
+            </Grid>
+            <TextBlock IsVisible="{Binding !IsAdmin}" Foreground="#F5A524" TextWrapping="Wrap"
+                       Text="Not elevated. Right-click Sentinel.exe → Run as administrator for Security event logs and some Defender keys."/>
+          </StackPanel>
+        </ScrollViewer>
+
+        <DockPanel Name="PageNetwork" IsVisible="False">
+          <TextBlock DockPanel.Dock="Top" Margin="0,0,0,10" Foreground="#8EA0AD" TextWrapping="Wrap"
+                     Text="Unauthenticated TCP connect-scan and banner / HTTP HEAD identification only. Subnets larger than a /22 are windowed."/>
+          <ListBox ItemsSource="{Binding Hosts}" Background="Transparent">
+            <ListBox.ItemTemplate>
+              <DataTemplate x:DataType="models:DiscoveredHost">
+                <Border Background="#141B22" BorderBrush="#2A3440" BorderThickness="1" Padding="12" Margin="0,0,0,8" CornerRadius="6">
+                  <StackPanel>
+                    <TextBlock FontWeight="SemiBold" Foreground="#E8EEF4" Text="{Binding Ip}"/>
+                    <TextBlock Foreground="#8EA0AD" Text="{Binding Hostname}"/>
+                    <ItemsControl ItemsSource="{Binding Ports}">
+                      <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="models:OpenPort">
+                          <TextBlock FontFamily="Cascadia Mono, Consolas, monospace" FontSize="12" Foreground="#C5D0DA">
+                            <TextBlock.Text>
+                              <MultiBinding StringFormat="{}{0}/{1}  {2}">
+                                <Binding Path="Port"/>
+                                <Binding Path="Service"/>
+                                <Binding Path="Banner"/>
+                              </MultiBinding>
+                            </TextBlock.Text>
+                          </TextBlock>
+                        </DataTemplate>
+                      </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                  </StackPanel>
+                </Border>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </DockPanel>
+
+        <ScrollViewer Name="PageThisPc" IsVisible="False">
+          <TextBlock TextWrapping="Wrap" Foreground="#C5D0DA" FontSize="14"
+                     Text="Scan This PC runs hardening, persistence, process/malware, accounts, and event-log triage. Results appear under Findings. Use Full assessment to also scan the LAN first."/>
+        </ScrollViewer>
+        <ScrollViewer Name="PagePersistence" IsVisible="False">
+          <TextBlock TextWrapping="Wrap" Foreground="#C5D0DA" FontSize="14"
+                     Text="Persistence coverage: HKCU/HKLM Run and RunOnce, Wow6432Node, Explorer policy Run, user and all-users Startup folders, automatic services (including unquoted paths), schtasks, Winlogon Shell/Userinit, AppInit_DLLs, and Image File Execution Options debuggers."/>
+        </ScrollViewer>
+        <ScrollViewer Name="PageAccounts" IsVisible="False">
+          <TextBlock TextWrapping="Wrap" Foreground="#C5D0DA" FontSize="14"
+                     Text="Account coverage: local users, Administrators group membership, Guest enabled, cmdkey saved credentials, and whether Sentinel itself is elevated."/>
+        </ScrollViewer>
+
+        <DockPanel Name="PageSignatures" IsVisible="False">
+          <StackPanel DockPanel.Dock="Top" Spacing="10" Margin="0,0,0,12">
+            <TextBlock Foreground="#C5D0DA" TextWrapping="Wrap"
+                       Text="Pulls free public feeds over HTTPS. Nothing from this PC is uploaded. Feeds: MalwareBazaar recent + Win32/Windows tags, ThreatFox, URLhaus payload names."/>
+            <TextBlock Text="{Binding SignatureLine}" Foreground="#3DDC97"/>
+            <Button Content="Update now" Click="UpdateSigs" HorizontalAlignment="Left" IsEnabled="{Binding !IsBusy}"/>
+          </StackPanel>
+          <ListBox ItemsSource="{Binding UpdateLog}" Background="Transparent">
+            <ListBox.ItemTemplate>
+              <DataTemplate x:DataType="models:UpdateResult">
+                <TextBlock Foreground="#C5D0DA">
+                  <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} — {1}">
+                      <Binding Path="Name"/>
+                      <Binding Path="Note"/>
+                    </MultiBinding>
+                  </TextBlock.Text>
+                </TextBlock>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </DockPanel>
+
+        <DockPanel Name="PageFindings" IsVisible="False">
+          <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8" Margin="0,0,0,10">
+            <ComboBox Name="FilterBox" Width="140" SelectedIndex="0" SelectionChanged="FilterChanged">
+              <ComboBoxItem Content="All"/>
+              <ComboBoxItem Content="Critical"/>
+              <ComboBoxItem Content="High"/>
+              <ComboBoxItem Content="Medium+"/>
+              <ComboBoxItem Content="Network"/>
+              <ComboBoxItem Content="This PC"/>
+            </ComboBox>
+            <Button Content="Export Markdown" Click="ExportMd"/>
+            <Button Content="Export HTML" Click="ExportHtml"/>
+            <Button Content="Clear" Click="ClearFindings"/>
+          </StackPanel>
+          <ListBox ItemsSource="{Binding VisibleFindings}" Background="Transparent">
+            <ListBox.ItemTemplate>
+              <DataTemplate x:DataType="models:Finding">
+                <Border Background="#141B22" BorderBrush="#2A3440" BorderThickness="1" Padding="12" Margin="0,0,0,8" CornerRadius="6">
+                  <StackPanel Spacing="4">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                      <TextBlock Text="{Binding SeverityLabel}" FontWeight="Bold" FontSize="11" Foreground="#F5A524"/>
+                      <TextBlock Text="{Binding CategoryLabel}" FontSize="11" Foreground="#8EA0AD"/>
+                      <TextBlock Text="{Binding Host}" FontSize="11" Foreground="#5BB5F5"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding Title}" FontWeight="SemiBold" Foreground="#E8EEF4" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Detail}" Foreground="#C5D0DA" FontSize="12" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Remediation}" Foreground="#3DDC97" FontSize="12" TextWrapping="Wrap"/>
+                  </StackPanel>
+                </Border>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </DockPanel>
+      </Panel>
+
+      <Border Grid.Row="2" Background="#11181F" BorderBrush="#2A3440" BorderThickness="0,1,0,0" Padding="16,8">
+        <Grid ColumnDefinitions="*,Auto">
+          <StackPanel>
+            <TextBlock Text="{Binding Status}" Foreground="#C5D0DA" FontSize="12"/>
+            <ProgressBar Height="4" Margin="0,6,16,0" Value="{Binding Progress}" Minimum="0" Maximum="1" IsVisible="{Binding IsBusy}"/>
+          </StackPanel>
+          <TextBlock Grid.Column="1" Text="{Binding Phase}" Foreground="#8EA0AD" VerticalAlignment="Center"/>
+        </Grid>
+      </Border>
+    </Grid>
+  </Grid>
+</Window>

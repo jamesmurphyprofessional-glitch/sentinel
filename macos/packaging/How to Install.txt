@@ -1,0 +1,36 @@
+How to install Sentinel
+=======================
+
+You do not need Xcode, Terminal, or any extra software.
+
+1. Double-click “Sentinal Distro.zip” if it is still a zip file.
+   A folder will appear.
+
+2. Open that folder.
+
+3. Double-click “Install Sentinel”.
+   (If your Mac asks whether to open it, choose Open.)
+
+4. Sentinel is copied into Applications and opens by itself.
+
+If your Mac says Sentinel cannot be opened
+------------------------------------------
+That is normal for apps not from the App Store.
+
+1. Open System Settings
+2. Click Privacy & Security
+3. Scroll down
+4. Click Open Anyway next to Sentinel
+
+How to use it
+-------------
+1. Press “Check this Mac”
+2. Tick the box that this is your network
+3. Press “Look at my Wi-Fi”
+
+This is the free version of Sentinel.
+Copyright © James Murphy. Developed by James Murphy.
+
+To uninstall later
+------------------
+Open the Applications folder, drag Sentinel to the Trash.
